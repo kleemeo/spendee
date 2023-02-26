@@ -3,7 +3,7 @@ import { Link, Outlet, useLoaderData } from '@remix-run/react';
 import { isAuthenticated } from '~/services/auth.server';
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const authenticated = isAuthenticated(request);
+  const authenticated = await isAuthenticated(request);
 
   return { authenticated };
 };

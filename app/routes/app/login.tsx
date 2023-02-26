@@ -8,15 +8,15 @@ import {
 } from '~/services/auth.server';
 
 export const loader = async ({ request }: LoaderArgs) => {
-  let data = null;
+  let tokens = null;
 
   try {
-    data = await getTokensFromCookie(request);
+    tokens = await getTokensFromCookie(request);
   } catch (error) {
     console.log(error);
   }
 
-  return { data, authenticated: await isAuthenticated(request) };
+  return { tokens, authenticated: await isAuthenticated(request) };
 };
 
 export const action = async () => {

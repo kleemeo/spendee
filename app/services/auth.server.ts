@@ -35,7 +35,7 @@ const isAuthenticated = async (request: Request) => {
     const tokens = await getTokensFromCookie(request);
     return !!tokens;
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return false;
   }
 };
