@@ -11,17 +11,18 @@ import stylesheet from './styles/global.css';
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
+  { rel: 'icon', href: '/favicon-16.ico' },
 ];
 
 export const meta: MetaFunction = () => ({
   charset: 'utf-8',
-  title: 'New Remix App',
+  title: 'Spendee',
   viewport: 'width=device-width,initial-scale=1',
 });
 
 export default function App() {
   return (
-    <html lang='en'>
+    <html lang='en' className='dark'>
       <head>
         <Meta />
         <Links />

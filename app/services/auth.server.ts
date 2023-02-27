@@ -75,7 +75,7 @@ const appendForm = async (request: Request, values: string[]) => {
 
 const deleteSession = async (request: Request) => {
   const session = await getSession(request.headers.get('Cookie'));
-  return redirect('../login', {
+  return redirect('/', {
     headers: {
       'Set-Cookie': await destroySession(session),
     },

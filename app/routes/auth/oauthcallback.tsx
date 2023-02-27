@@ -11,5 +11,5 @@ export async function loader({ request }: LoaderArgs) {
     cookie = await setGoogleAuthTokens(request, code);
   }
 
-  return redirect('/app/login', { headers: { 'Set-Cookie': cookie } });
+  return redirect('/app', { headers: { 'Set-Cookie': cookie } });
 }
