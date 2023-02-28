@@ -40,7 +40,7 @@ const isAuthenticated = async (request: Request) => {
   }
 };
 
-const appendForm = async (request: Request, values: string[]) => {
+const appendForm = async (request: Request, values: IFormData) => {
   const tokens = await getTokensFromCookie(request);
   oauth2Client.setCredentials(tokens);
 
@@ -48,6 +48,17 @@ const appendForm = async (request: Request, values: string[]) => {
     version: 'v4',
     auth: oauth2Client,
   });
+
+  const formattedValues = [
+    new Date().toISOString(),
+    values.date,
+    new Date(values.date).getMonth() + 1,
+    values.item,
+    values.amount,
+    values['category[Code]'],
+    values['category[Category]'],
+    values['account[Account]'],
+  ];
 
   const requestBody: {
     spreadsheetId: string;
@@ -61,7 +72,7 @@ const appendForm = async (request: Request, values: string[]) => {
     range: 'Sheet1!A1:B1',
     valueInputOption: 'USER_ENTERED',
     resource: {
-      values: [values],
+      values: [formattedValues],
     },
   };
 
@@ -69,7 +80,17 @@ const appendForm = async (request: Request, values: string[]) => {
     const results = await client.spreadsheets.values.append(requestBody);
     return results.data;
   } catch (err) {
-    throw err;
+    const error = {
+      issues: [
+        {
+          message: 'Submission to spreadsheet failed.',
+          errorMessage: err,
+          path: ['submission'],
+        },
+      ],
+    };
+    console.error(err);
+    return { error };
   }
 };
 
