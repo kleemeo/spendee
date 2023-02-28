@@ -1,11 +1,5 @@
 [
   {
-    "Category": "Categories",
-    "Code": "000",
-    "Group": "Home",
-    "Necessary": "Y"
-  },
-  {
     "Category": "Condo Fee",
     "Code": 101,
     "Group": "Home",

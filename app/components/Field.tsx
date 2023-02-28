@@ -1,9 +1,13 @@
-import type { HTMLInputTypeAttribute } from 'react';
+import type { HTMLInputTypeAttribute, InputHTMLAttributes } from 'react';
 import { useState } from 'react';
 import React from 'react';
 
-const MoneyField = () => {
-  const [value, setValue] = useState('');
+const MoneyField = ({
+  inputProps,
+}: {
+  inputProps?: InputHTMLAttributes<HTMLInputElement>;
+}) => {
+  const [value, setValue] = useState<number | string>('');
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
@@ -24,6 +28,7 @@ const MoneyField = () => {
         min='0'
         className='px-2 py-2 shadow-sm ring-[.5px] ring-gray-700 placeholder:text-gray-500 focus:ring-1 focus:outline-none focus:ring-gray-300 block w-full sm:text-sm border-gray-300 rounded-r-md'
         placeholder='0.00'
+        {...inputProps}
       />
     </div>
   );
@@ -42,7 +47,7 @@ const Field = ({
   label: string;
   type?: HTMLInputTypeAttribute;
   placeholder?: string;
-  inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
+  inputProps?: InputHTMLAttributes<HTMLInputElement>;
   children?: React.ReactNode;
   required?: boolean;
 }) => {
@@ -53,7 +58,7 @@ const Field = ({
       </label>
       <div className='mt-1'>
         {name === 'amount' ? (
-          <MoneyField />
+          <MoneyField inputProps={inputProps} />
         ) : (
           children ?? (
             <input
