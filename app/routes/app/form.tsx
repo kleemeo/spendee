@@ -47,14 +47,12 @@ const FormPage = () => {
           label='Item'
           placeholder='Item description'
           inputProps={{ ref: firstInputRef }}
-          required
         />
         <Field
           name='date'
           type={'date'}
           label='Transaction Date'
           inputProps={{ defaultValue: new Date().toISOString().split('T')[0] }}
-          required
         />
         <Field name='category' label='Category'>
           <ComboBox />
@@ -67,8 +65,6 @@ const FormPage = () => {
           label='Amount'
           placeholder='$ 0.00'
           type='number'
-          required
-          amountRef={amountRef}
         />
         <div className='h-2'></div>
         <Button

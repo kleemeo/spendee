@@ -6,9 +6,9 @@ import { isAuthenticated } from '~/services/auth.server';
 export const loader = async ({ request }: LoaderArgs) => {
   const authenticated = await isAuthenticated(request);
 
-  // if (!authenticated) {
-  //   return redirect('/');
-  // }
+  if (!authenticated) {
+    return redirect('/');
+  }
 
   return { authenticated };
 };

@@ -55,7 +55,7 @@ const AccountsComboBox = () => {
             <UpDownIcon />
           </Combobox.Button>
         </div>
-        <Combobox.Options className='absolute mt-1 max-h-60 min-w-[24rem] overflow-auto bg-[var(--mauve2)] text-gray-300  min-w-sm select-none scrollbar-hide z-0'>
+        <Combobox.Options className='absolute mt-1 max-h-60 min-w-[24rem] overflow-auto bg-[var(--mauve2)] text-gray-300  min-w-sm select-none scrollbar-hide z-0 border border-gray-200 border-t-0'>
           {filteredCat.map((acc) => (
             <Combobox.Option key={acc.Account} value={acc} className='w-full'>
               {({ active, selected }) => (
