@@ -30,9 +30,7 @@ export default function App() {
   return (
     <div>
       <TopNav />
-      <div>
-        <Outlet />
-      </div>
+      <Outlet />
     </div>
   );
 }

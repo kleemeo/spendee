@@ -44,8 +44,7 @@ const AccountsComboBox = () => {
 
   return (
     <>
-      <input name='account' value={selectedAcc.Account} hidden></input>
-      <Combobox value={selectedAcc} onChange={setSelectedAcc}>
+      <Combobox value={selectedAcc} onChange={setSelectedAcc} name='account'>
         <div className='relative w-full cursor-default overflow-hiddentext-left shadow-md'>
           <Combobox.Input
             displayValue={(acc: Account) => `${acc.Type} - ${acc.Account}`}

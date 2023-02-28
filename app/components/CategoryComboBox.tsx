@@ -46,8 +46,7 @@ const ComboBox = () => {
 
   return (
     <>
-      <input name='categories' value={selectedCat.Category} hidden></input>
-      <Combobox value={selectedCat} onChange={setSelectedCat}>
+      <Combobox value={selectedCat} onChange={setSelectedCat} name='category'>
         <div className='relative w-full cursor-default overflow-hiddentext-left shadow-md'>
           <Combobox.Input
             displayValue={(cat: Category) =>

@@ -3,12 +3,21 @@ import { useState } from 'react';
 import React from 'react';
 
 const MoneyField = () => {
+  const [value, setValue] = useState('');
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  };
   return (
     <div className='flex'>
       <span className='inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600'>
         $
       </span>
       <input
+        value={value ?? ''}
+        onChange={onChange}
+        onBlur={(event) => {
+          setValue(parseFloat(event.target.value).toFixed(2));
+        }}
         type='number'
         name='amount'
         step={0.01}
