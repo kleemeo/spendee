@@ -1,0 +1,18 @@
+[
+  {
+    "Account": "AMEX_1002",
+    "Type": "CC"
+  },
+  {
+    "Account": "RBC_3494",
+    "Type": "CC"
+  },
+  {
+    "Account": "RBC_3739C",
+    "Type": "Chequing"
+  },
+  {
+    "Account": "Cash",
+    "Type": "Cash"
+  }
+]

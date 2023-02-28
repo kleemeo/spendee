@@ -1,0 +1,218 @@
+[
+  {
+    "Category": "Categories",
+    "Code": "000",
+    "Group": "Home",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Condo Fee",
+    "Code": 101,
+    "Group": "Home",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Home Insurance",
+    "Code": 102,
+    "Group": "Home",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Electricity",
+    "Code": 103,
+    "Group": "Home",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Gas",
+    "Code": 104,
+    "Group": "Home",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Phone",
+    "Code": 105,
+    "Group": "Home",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Internet",
+    "Code": 106,
+    "Group": "Home",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Home Maintenance/Improvements",
+    "Code": 107,
+    "Group": "Home",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Cleaning",
+    "Code": 108,
+    "Group": "Home",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Property Tax",
+    "Code": 109,
+    "Group": "Home",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Car payments",
+    "Code": 201,
+    "Group": "Transportation",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Auto Insurance",
+    "Code": 202,
+    "Group": "Transportation",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Fuel",
+    "Code": 203,
+    "Group": "Transportation",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Public Transportation",
+    "Code": 204,
+    "Group": "Transportation",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Ride Share",
+    "Code": 205,
+    "Group": "Transportation",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Car Repairs/Maintenance",
+    "Code": 206,
+    "Group": "Transportation",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Parking/Tolls",
+    "Code": 207,
+    "Group": "Transportation",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Registration/License",
+    "Code": 208,
+    "Group": "Transportation",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Groceries",
+    "Code": 301,
+    "Group": "LivingHealth",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Household Supplies",
+    "Code": 302,
+    "Group": "LivingHealth",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Medical/Doctor Visits/Drugs",
+    "Code": 303,
+    "Group": "LivingHealth",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Physiotherapy",
+    "Code": 304,
+    "Group": "LivingHealth",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Barber/Salon",
+    "Code": 305,
+    "Group": "LivingHealth",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Credit Card Fees",
+    "Code": 306,
+    "Group": "LivingHealth",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Subscription Fees",
+    "Code": 307,
+    "Group": "LivingHealth",
+    "Necessary": "Y"
+  },
+  {
+    "Category": "Beer/Alcohol",
+    "Code": 401,
+    "Group": "LivingHealth",
+    "Necessary": "N"
+  },
+  {
+    "Category": "Restaurants/Take Out",
+    "Code": 402,
+    "Group": "LivingHealth",
+    "Necessary": "N"
+  },
+  {
+    "Category": "Entertainment",
+    "Code": 403,
+    "Group": "LivingHealth",
+    "Necessary": "N"
+  },
+  {
+    "Category": "Memberships",
+    "Code": 404,
+    "Group": "LivingHealth",
+    "Necessary": "N"
+  },
+  {
+    "Category": "Clothing",
+    "Code": 405,
+    "Group": "LivingHealth",
+    "Necessary": "N"
+  },
+  {
+    "Category": "Home Improvements - Discretionary",
+    "Code": 406,
+    "Group": "LivingHealth",
+    "Necessary": "N"
+  },
+  {
+    "Category": "Vitamins/Supplements",
+    "Code": 407,
+    "Group": "LivingHealth",
+    "Necessary": "N"
+  },
+  {
+    "Category": "Hotel/Flights/Transportation",
+    "Code": 501,
+    "Group": "Travel",
+    "Necessary": "N"
+  },
+  {
+    "Category": "Food/Activities",
+    "Code": 502,
+    "Group": "Travel",
+    "Necessary": "N"
+  },
+  {
+    "Category": "Shopping",
+    "Code": 503,
+    "Group": "Travel",
+    "Necessary": "N"
+  },
+  {
+    "Category": "Travel Misc.",
+    "Code": 504,
+    "Group": "Travel",
+    "Necessary": "N"
+  }
+]
