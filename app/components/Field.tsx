@@ -17,22 +17,20 @@ const InputFieldMoney = (
   );
 
   return (
-    <div className={`flex focus:ring-1 focus:outline-none focus:ring-gray-300`}>
+    <div className={`flex `}>
       <span
-        className={`inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 ${
-          error ? 'border border-red-500' : ''
-        }`}
+        className={`inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600`}
       >
         $
       </span>
       <CurrencyInput
         className={InputFieldTw + 'rounded-none rounded-r-md'}
         decimalScale={2}
+        onValueChange={(value) => setAmountValue(value)}
         ref={ref}
         {...getInputProps({
           id: 'amount',
           value: amountValue as string,
-          onChange: (e) => setAmountValue(e.target.value),
           placeholder: '0.00',
         })}
       />
