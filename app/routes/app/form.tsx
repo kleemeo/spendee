@@ -5,76 +5,97 @@ import { Button } from '~/components/Button';
 import ComboBox from '~/components/CategoryComboBox';
 import AccountsComboBox from '~/components/AccountsComboBox';
 import { appendForm } from '~/services/auth.server';
-import Field from '~/components/Field';
+import InputField from '~/components/Field';
 import { useEffect, useRef } from 'react';
 import { z } from 'zod';
+import {
+  useFormContext,
+  useIsSubmitting,
+  useIsValid,
+  useUpdateControlledField,
+  ValidatedForm,
+} from 'remix-validated-form';
+import { withZod } from '@remix-validated-form/with-zod';
 
 // export const loader = async ({ request }: LoaderArgs) => {};
 
-const schema = z.object({
-  item: z.string().min(1, 'Item is required'),
-  amount: z.string().min(1, 'Amount is required'),
-});
+export const validator = withZod(
+  z.object({
+    item: z.string().min(1, 'Item should contain at least 3 characters'),
+    amount: z.coerce.number().min(0.01, 'Amount should be greater than 0.01'),
+  })
+);
 
 export const action = async ({ request }: ActionArgs) => {
-  const body = await request.formData();
-  const formDataObject = Object.fromEntries(body.entries());
-  try {
-    const parsedObject = schema.parse(formDataObject);
-  } catch (error) {
-    return json(
-      { error, entries: Object.fromEntries(body.entries()) },
-      { status: 400 }
-    );
+  await new Promise((res) => setTimeout(res, 500));
+
+  const result = await validator.validate(await request.formData());
+
+  if (result.error) {
+    return json(result, { status: 400 });
   }
-  return await appendForm(request, formDataObject);
+  // return result;
+  return result;
+  // return await appendForm(request, result.submittedData);
 };
 
 const FormPage = () => {
   const data = useActionData<typeof action>();
-
+  const itemInputRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
-  const firstInputRef = useRef<HTMLInputElement | null>(null);
 
-  const navigation = useNavigation();
+  const isSubmitting = useIsSubmitting('expense-form');
+  const isFromValid = useIsValid('expense-form');
+  const updateField = useUpdateControlledField('expense-form');
+  const formContext = useFormContext('expense-form');
 
-  const isSubmitting = navigation.state === 'submitting';
+  const isPending = useRef(false);
 
   useEffect(() => {
-    if (!isSubmitting && firstInputRef.current?.value) {
-      firstInputRef.current?.focus();
-      formRef.current?.reset();
+    if (isSubmitting && isFromValid) {
+      isPending.current = true;
     }
-  }, [isSubmitting]);
+
+    if (!isSubmitting && isPending.current) {
+      isPending.current = false;
+      itemInputRef.current?.focus();
+      formRef.current?.reset();
+      updateField('amount', 0.0);
+      console.log('Form submitted');
+    }
+  });
 
   return (
     <section className='px-5 mt-4 divide-y divide-gray-600'>
-      <h2 className='py-3 text-gray-300'>Add an Expense</h2>
-      <Form method='post' className='container max-w-sm py-3' ref={formRef}>
-        <Field
+      <h2 className='text-2xl py-3 text-gray-300'>Add an Expense</h2>
+      <ValidatedForm
+        id='expense-form'
+        className='container max-w-sm py-3'
+        method='post'
+        formRef={formRef}
+        validator={validator}
+      >
+        <InputField
           name='item'
           label='Item'
-          placeholder='Item description'
-          inputProps={{ ref: firstInputRef }}
+          inputProps={{ placeholder: 'Item Description' }}
+          ref={itemInputRef}
         />
-        <Field
+        <InputField
           name='date'
-          type={'date'}
           label='Transaction Date'
-          inputProps={{ defaultValue: new Date().toISOString().split('T')[0] }}
+          inputProps={{
+            type: 'date',
+            defaultValue: new Date().toISOString().split('T')[0],
+          }}
         />
-        <Field name='category' label='Category'>
+        <InputField name='category' label='Category'>
           <ComboBox />
-        </Field>
-        <Field name='account' label='Account'>
+        </InputField>
+        <InputField name='account' label='Account'>
           <AccountsComboBox />
-        </Field>
-        <Field
-          name='amount'
-          label='Amount'
-          placeholder='$ 0.00'
-          type='number'
-        />
+        </InputField>
+        <InputField name='amount' label='Amount' />
         <div className='h-2'></div>
         <Button
           classNameProps={
@@ -85,6 +106,18 @@ const FormPage = () => {
         >
           {isSubmitting ? '...' : 'Submit'}
         </Button>
+        {formContext.fieldErrors && (
+          <>
+            <ul className='pl-4'>
+              {Object.keys(formContext.fieldErrors).map((key) => (
+                <li key={key} className='list-disc text-red-600'>
+                  {key}: {formContext.fieldErrors[key]}
+                </li>
+              ))}
+            </ul>
+            <pre>{JSON.stringify(formContext.fieldErrors, null, 2)}</pre>
+          </>
+        )}
         {data?.error && (
           <ul className='pl-4'>
             {data.error.issues.map((issue) => (
@@ -94,7 +127,7 @@ const FormPage = () => {
             ))}
           </ul>
         )}
-      </Form>
+      </ValidatedForm>
       {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
     </section>
   );

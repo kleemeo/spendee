@@ -40,7 +40,7 @@ const isAuthenticated = async (request: Request) => {
   }
 };
 
-const appendForm = async (request: Request, values: IFormData) => {
+const appendForm = async (request: Request, values: IFormSubmittedData) => {
   const tokens = await getTokensFromCookie(request);
   oauth2Client.setCredentials(tokens);
 
@@ -55,9 +55,9 @@ const appendForm = async (request: Request, values: IFormData) => {
     new Date(values.date).getMonth() + 1,
     values.item,
     values.amount,
-    values['category[Code]'],
-    values['category[Category]'],
-    values['account[Account]'],
+    values.category.Code,
+    values.category.Category,
+    values.account.Account,
   ];
 
   const requestBody: {
