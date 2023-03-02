@@ -1,11 +1,16 @@
-declare interface IFormData {
+declare interface IFormSubmittedData {
+  __rvfInternalFormId: string;
   item: string;
   date: string;
-  'category[Category]': string;
-  'category[Code]': string;
-  'category[Group]': string;
-  'category[Necessary]': string;
-  'account[Account]': string;
-  'account[Type]': string;
+  category: {
+    Category: string;
+    Code: string;
+    Group: string;
+    Necessary: string;
+  };
+  account: {
+    Account: string;
+    Type: string;
+  };
   amount: string;
 }
