@@ -6,7 +6,7 @@ import ComboBox from '~/components/CategoryComboBox';
 import AccountsComboBox from '~/components/AccountsComboBox';
 import { appendForm } from '~/services/auth.server';
 import InputField from '~/components/Field';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { z } from 'zod';
 import {
   useFormContext,
@@ -48,9 +48,11 @@ const FormPage = () => {
   const formRef = useRef<HTMLFormElement>(null);
 
   const isSubmitting = useIsSubmitting('expense-form');
-  const isFromValid = useIsValid('expense-form');
+  const isFormValid = useIsValid('expense-form');
   const updateField = useUpdateControlledField('expense-form');
   const formContext = useFormContext('expense-form');
+
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const isPending = useRef(false);
 
@@ -59,11 +61,12 @@ const FormPage = () => {
   }, []);
 
   useEffect(() => {
-    if (isSubmitting && isFromValid) {
+    if (isSubmitting && isFormValid) {
       isPending.current = true;
     }
 
-    if (!isSubmitting && isPending.current && isFromValid) {
+    if (!isSubmitting && isPending.current && isFormValid) {
+      setShowSuccess(true);
       isPending.current = false;
       itemInputRef.current?.focus();
       formRef.current?.reset();
@@ -81,6 +84,7 @@ const FormPage = () => {
         method='post'
         formRef={formRef}
         validator={validator}
+        onKeyDown={(e) => setShowSuccess(false)}
       >
         <h2 className='font-semibold text-2xl py-3 text-gray-300'>
           Add an Expense
@@ -116,8 +120,17 @@ const FormPage = () => {
         >
           {isSubmitting ? '...' : 'Submit'}
         </Button>
-        {data?.spreadsheetId && (
+        {data?.data?.spreadsheetId && showSuccess && (
           <p className='mt-4 text-green-600'>Expense added successfully! ✅</p>
+        )}
+
+        {data?.error && showSuccess && (
+          <>
+            <p className='mt-4 text-red-700'>Something went wrong!</p>
+            <p className='mt-4 text-red-700'>
+              Error: {data?.error?.errorMessage}
+            </p>
+          </>
         )}
 
         {formContext?.fieldErrors && (

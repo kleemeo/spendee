@@ -1,4 +1,4 @@
-import { LoaderArgs, redirect } from '@remix-run/node';
+import { json, LoaderArgs, redirect } from '@remix-run/node';
 import { google } from 'googleapis';
 import { commitSession, getSession, destroySession } from '~/sessions';
 
@@ -42,12 +42,16 @@ const isAuthenticated = async (request: Request) => {
 
 const appendForm = async (request: Request, values: IFormSubmittedData) => {
   const tokens = await getTokensFromCookie(request);
+  tokens.refresh_token = '';
+  console.log(tokens);
   oauth2Client.setCredentials(tokens);
 
   const client = await google.sheets({
     version: 'v4',
     auth: oauth2Client,
   });
+
+  const spreadsheetId: string = '1ri-3WqTKFSkOWtwCMXCpBBYLY73NzYpatc55wr9S8fY';
 
   const formattedValues = [
     new Date().toISOString(),
@@ -68,8 +72,8 @@ const appendForm = async (request: Request, values: IFormSubmittedData) => {
       values: string[][];
     };
   } = {
-    spreadsheetId: '1CYFGdJUfSW_yPbjduIkMqpcLEBcRnpr3bkypyqCqpic',
-    range: 'Sheet1!A1:B1',
+    spreadsheetId: spreadsheetId,
+    range: 'EXPENSES!A1:B1',
     valueInputOption: 'USER_ENTERED',
     resource: {
       values: [formattedValues],
@@ -77,20 +81,20 @@ const appendForm = async (request: Request, values: IFormSubmittedData) => {
   };
 
   try {
+    console.log(`Appending to spreadsheet ${spreadsheetId}`, {
+      values: requestBody?.resource?.values,
+    });
     const results = await client.spreadsheets.values.append(requestBody);
-    return results.data;
+    return { data: results?.data, values: results?.config?.data?.values };
   } catch (err) {
+    const message = err?.message ?? 'No message';
     const error = {
-      issues: [
-        {
-          message: 'Submission to spreadsheet failed.',
-          errorMessage: err,
-          path: ['submission'],
-        },
-      ],
+      message: 'Submission to spreadsheet failed.',
+      errorMessage: message,
+      path: ['submission'],
     };
     console.error(err);
-    return { error };
+    return json({ error }, { status: 400 });
   }
 };
 
