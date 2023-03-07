@@ -1,20 +1,12 @@
 import { json, LoaderArgs, redirect } from '@remix-run/node';
 import { google } from 'googleapis';
-import { commitSession, getSession, destroySession } from '~/sessions';
+import { commitSession, getSession, destroySession } from './sessions.server';
 
 const oauth2Client = new google.auth.OAuth2(
   process.env.GOOGLE_CLIENT_ID,
   process.env.GOOGLE_CLIENT_SECRET,
   process.env.GOOGLE_REDIRECT_URI
 );
-
-// oauth2Client.on('tokens', (tokens) => {
-//   if (tokens.refresh_token) {
-//     // store the refresh_token in my database!
-//     console.log('refresh_token:', tokens.refresh_token);
-//   }
-//   console.log('access_token:', tokens.access_token);
-// });
 
 const scopes = ['https://www.googleapis.com/auth/spreadsheets'];
 
