@@ -186,6 +186,18 @@
     "Necessary": "N"
   },
   {
+    "Category": "Gifts/Donations",
+    "Code": 408,
+    "Group": "LivingHealth",
+    "Necessary": "N"
+  },
+  {
+    "Category": "Aileen Spend",
+    "Code": 409,
+    "Group": "LivingHealth",
+    "Necessary": "N"
+  },
+  {
     "Category": "Hotel/Flights/Transportation",
     "Code": 501,
     "Group": "Travel",
