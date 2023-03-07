@@ -49,6 +49,12 @@ const isAuthenticated = async (request: Request) => {
   }
 };
 
+const authRedirect = (request: Request) => {
+  if (!isAuthenticated(request)) {
+    return redirect('/');
+  }
+};
+
 const appendForm = async (request: Request, values: IFormSubmittedData) => {
   const tokens = await getTokensFromCookie(request);
   oauth2Client.setCredentials(tokens);
@@ -116,6 +122,7 @@ const deleteSession = async (request: Request) => {
 };
 
 export {
+  authRedirect,
   isAuthenticated,
   getTokensFromCookie,
   oauth2Client,
