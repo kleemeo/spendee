@@ -1,4 +1,4 @@
-import { json, LoaderArgs, redirect } from '@remix-run/node';
+import { json, redirect } from '@remix-run/node';
 import { google } from 'googleapis';
 import { commitSession, getSession, destroySession } from './sessions.server';
 
@@ -27,16 +27,19 @@ const setGoogleAuthTokens = async (request: Request, code: string) => {
 
 const getTokensFromCookie = async (request: Request) => {
   const session = await getSession(request.headers.get('Cookie'));
+  const tokens = session.get('tokens');
+  if (!tokens) throw new Error('Tokens is undefined');
+  if (tokens.expiry_date < Date.now()) throw new Error('Access Token Expired');
   return session.get('tokens');
 };
 
 const isAuthenticated = async (request: Request) => {
   try {
     const tokens = await getTokensFromCookie(request);
-    console.log('authenticating with tokens', tokens);
     return !!tokens;
-  } catch (error) {
-    console.log(error);
+  } catch (e) {
+    const message = e instanceof Error ? e.message : '';
+    console.log('Failed auth: ', message);
     return false;
   }
 };
@@ -84,7 +87,7 @@ const appendForm = async (request: Request, values: IFormSubmittedData) => {
     range: 'EXPENSES!A1:B1',
     valueInputOption: 'USER_ENTERED',
     resource: {
-      values: [formattedValues],
+      values: [formattedValues as string[]],
     },
   };
 
@@ -93,7 +96,7 @@ const appendForm = async (request: Request, values: IFormSubmittedData) => {
     const results = await client.spreadsheets.values.append(requestBody);
     return { data: results?.data, values: results?.config?.data?.values };
   } catch (err) {
-    const message = err?.message ?? 'No message';
+    const message = err instanceof Error ? err.message : 'No message';
     const error = {
       message: 'Submission to spreadsheet failed.',
       errorMessage: message,
