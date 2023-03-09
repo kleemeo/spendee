@@ -1,5 +1,6 @@
 import { json, redirect } from '@remix-run/node';
 import { google } from 'googleapis';
+import { getClientIPAddress } from 'remix-utils';
 import { commitSession, getSession, destroySession } from './sessions.server';
 
 const oauth2Client = new google.auth.OAuth2(
@@ -34,12 +35,14 @@ const getTokensFromCookie = async (request: Request) => {
 };
 
 const isAuthenticated = async (request: Request) => {
+  let ipAddress = getClientIPAddress(request);
   try {
     const tokens = await getTokensFromCookie(request);
+    console.log({ tokens });
     return !!tokens;
   } catch (e) {
     const message = e instanceof Error ? e.message : '';
-    console.log('Failed auth: ', message);
+    console.log(`Client ${ipAddress} failed auth: ${message}`);
     return false;
   }
 };

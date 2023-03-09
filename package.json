@@ -19,6 +19,7 @@
     "react": "^18.2.0",
     "react-currency-input-field": "^3.6.10",
     "react-dom": "^18.2.0",
+    "remix-utils": "^6.0.0",
     "remix-validated-form": "^4.6.9",
     "zod": "^3.20.6"
   },
