@@ -198,6 +198,12 @@
     "Necessary": "N"
   },
   {
+    "Category": "Misc Shared",
+    "Code": 410,
+    "Group": "LivingHealth",
+    "Necessary": "N"
+  },
+  {
     "Category": "Hotel/Flights/Transportation",
     "Code": 501,
     "Group": "Travel",

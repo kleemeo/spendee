@@ -12,6 +12,10 @@
     "Type": "Chequing"
   },
   {
+    "Account": "TD_VISA8311",
+    "Type": "CC"
+  },
+  {
     "Account": "Cash",
     "Type": "Cash"
   }
