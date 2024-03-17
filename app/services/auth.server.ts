@@ -65,7 +65,7 @@ const appendForm = async (request: Request, values: IFormSubmittedData) => {
   const spreadsheetId: string =
     process.env.NODE_ENV === 'production'
       ? '1ri-3WqTKFSkOWtwCMXCpBBYLY73NzYpatc55wr9S8fY'
-      : '1CYFGdJUfSW_yPbjduIkMqpcLEBcRnpr3bkypyqCqpic';
+      : '13HYRrHS-jVs8rte4cMTSmthjPe9GQrwsgMKmD5REVD0';
 
   const formattedValues = [
     new Date().toISOString(),
